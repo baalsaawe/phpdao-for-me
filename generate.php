@@ -110,8 +110,8 @@ function getnerateDomainObjects($ret){
 		$template->set('domain_class_name', $clazzName);
 		$template->set('table_name', $tableName);
 		$tab = getFields($tableName);
-		$fields = "\r\n";
-        $getterSetter = "\n";
+		$fields = "";
+        $getterSetter = "";
 		for($j=0;$j<count($tab);$j++){
             $valName = getVarNameWithS($tab[$j][0]);
             $fields .= "\tprivate \$".$valName.";\n";

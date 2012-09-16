@@ -6,7 +6,6 @@
      * @date: ${date}	 
  */
 class ${domain_class_name}{
-    ${variables}
-    ${getterSetter}
-}
+${variables}
+${getterSetter}}
 ?>
