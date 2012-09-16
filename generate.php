@@ -159,9 +159,9 @@ function getnerateDAOExtObjects($ret){
 				$updateFields .= $tab[$j][0]." = ?, ";
 				$questionMarks .= "?, ";
 				if(isColumnTypeNumber($tab[$j][1])){
-					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->get".camelize(getVarNameWithS($tab[$j][0]))."());\n";
 				}else{
-					$parameterSetter .= "\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\t\$sqlQuery->set($".getVarName($tableName)."->get".camelize(getVarNameWithS($tab[$j][0]))."());\n";
 				}
 				$parameterSetter2 = '';
 				if(isColumnTypeNumber($tab[$j][1])){
@@ -190,6 +190,7 @@ function getnerateDAOExtObjects($ret){
 		$questionMarks = substr($questionMarks,0, strlen($questionMarks)-2);
 		$template->set('pk', $pk);
 		$template->set('pk_php', getVarNameWithS($pk));		
+		$template->set('pk_php_c', camelize(getVarNameWithS($pk)));		
 		$template->set('insert_fields', $insertFields);
 		$template->set('read_row', $readRow);
 		$template->set('update_fields', $updateFields);
@@ -237,9 +238,9 @@ function getnerateDAOObjects($ret){
 				$updateFields .= $tab[$j][0]." = ?, ";
 				$questionMarks .= "?, ";
 				if(isColumnTypeNumber($tab[$j][1])){
-					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->get".camelize(getVarNameWithS($tab[$j][0]))."());\n";
 				}else{
-					$parameterSetter .= "\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\t\$sqlQuery->set($".getVarName($tableName)."->get".camelize(getVarNameWithS($tab[$j][0]))."());\n";
 				}
 				$parameterSetter2 = '';
 				if(isColumnTypeNumber($tab[$j][1])){
@@ -315,7 +316,8 @@ function getnerateDAOObjects($ret){
 		$template->set('pk_set', $s3);		
 		$template->set('pk_where', $s2);
 		$template->set('pks', $s);
-		$template->set('pk_php', getVarNameWithS($pk));		
+		$template->set('pk_php', getVarNameWithS($pk));
+		$template->set('pk_php_c', camelize(getVarNameWithS($pk)));
 		$template->set('insert_fields', $insertFields);
 		$template->set('read_row', $readRow);
 		$template->set('update_fields', $updateFields);
@@ -364,7 +366,7 @@ function getnerateIDAOObjects($ret){
 				$updateFields .= $tab[$j][0]." = ?, ";
 				$questionMarks .= "?, ";
 				if(isColumnTypeNumber($tab[$j][1])){
-					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->get".camelize(getVarNameWithS($tab[$j][0]))."());\n";
 				}else{
 					$parameterSetter .= "\t\t".'$sqlQuery->set($'.getVarName($tab[$j][0]).');'."\n";
 				}

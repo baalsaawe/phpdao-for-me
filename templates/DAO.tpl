@@ -74,7 +74,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 		$sql = 'UPDATE ${table_name} SET ${update_fields} WHERE ${pk} = ?';
 		$sqlQuery = new SqlQuery($sql);
 		${parameter_setter}
-		$sqlQuery->set${pk_number}($${var_name}->${pk_php});
+		$sqlQuery->set${pk_number}($${var_name}->get${pk_php_c}());
 		return $this->executeUpdate($sqlQuery);
 	}
 
