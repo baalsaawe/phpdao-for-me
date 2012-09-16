@@ -7,5 +7,6 @@
 	 */
 	class ${domain_class_name}{
 		${variables}
+        ${getterSetter}
 	}
 ?>

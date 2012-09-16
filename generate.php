@@ -86,6 +86,10 @@ function createDAOFactory($ret){
 	$template->write('generated/class/dao/DAOFactory.class.php');
 }
 
+function camelize($str) {
+    return strtoupper(substr($str, 0, 1)) . substr($str, 1);
+}
+
 /**
  * Enter description here...
  *
@@ -107,10 +111,17 @@ function getnerateDomainObjects($ret){
 		$template->set('table_name', $tableName);
 		$tab = getFields($tableName);
 		$fields = "\r\n";
+        $getterSetter = "\n";
 		for($j=0;$j<count($tab);$j++){
-			$fields .= "\t\tvar $".getVarNameWithS($tab[$j][0]).";\n\r";
+            $valName = getVarNameWithS($tab[$j][0]);
+            $fields .= "\tprivate \$".$valName.";\n";
+            $getterSetter = "\tpublic function get".camelize($valName)."() {\n"
+                . "\t\treturn \$this->".$valName.";\n" . "\t}\n\n"
+                . "\tpublic function set".camelize($valName)."(\$".$valName.") {\n"
+                . "\t\t\$this->".$valName." = \$".$valName.";\n" . "\t}\n\n";
 		}
 		$template->set('variables', $fields);
+        $template->set('getterSetter', $getterSetter);
 		$template->set('date', date("Y-m-d H:i"));
 		$template->write('generated/class/dto/'.$clazzName.'.class.php');
 	}
