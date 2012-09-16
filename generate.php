@@ -180,7 +180,7 @@ function getnerateDAOExtObjects($ret){
 		return \$this->executeUpdate(\$sqlQuery);
 	}\n\n";
 			}
-			$readRow .= "\t\t\$".getVarName($tableName)."->".getVarNameWithS($tab[$j][0])." = \$row['".$tab[$j][0]."'];\n";
+			$readRow .= "\t\t\$".getVarName($tableName)."->set".camelize(getVarNameWithS($tab[$j][0]))."(\$row['".$tab[$j][0]."']);\n";
 		}
 		if($pk==''){
 			continue;
@@ -258,7 +258,7 @@ function getnerateDAOObjects($ret){
 		return \$this->executeUpdate(\$sqlQuery);
 	}\n\n";
 			}
-			$readRow .= "\t\t\$".getVarName($tableName)."->".getVarNameWithS($tab[$j][0])." = \$row['".$tab[$j][0]."'];\n";
+			$readRow .= "\t\t\$".getVarName($tableName)."->set".camelize(getVarNameWithS($tab[$j][0]))."(\$row['".$tab[$j][0]."']);\n";
 		}
 		if($pk==''){
 			continue;
