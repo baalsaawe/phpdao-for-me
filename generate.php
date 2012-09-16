@@ -115,7 +115,7 @@ function getnerateDomainObjects($ret){
 		for($j=0;$j<count($tab);$j++){
             $valName = getVarNameWithS($tab[$j][0]);
             $fields .= "\tprivate \$".$valName.";\n";
-            $getterSetter = "\tpublic function get".camelize($valName)."() {\n"
+            $getterSetter .= "\tpublic function get".camelize($valName)."() {\n"
                 . "\t\treturn \$this->".$valName.";\n" . "\t}\n\n"
                 . "\tpublic function set".camelize($valName)."(\$".$valName.") {\n"
                 . "\t\t\$this->".$valName." = \$".$valName.";\n" . "\t}\n\n";
