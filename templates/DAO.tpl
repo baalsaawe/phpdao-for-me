@@ -61,7 +61,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 		$sqlQuery = new SqlQuery($sql);
 		${parameter_setter}
 		$id = $this->executeInsert($sqlQuery);	
-		$${var_name}->${pk_php} = $id;
+		$${var_name}->set${pk_php_c}($id);
 		return $id;
 	}
 	
