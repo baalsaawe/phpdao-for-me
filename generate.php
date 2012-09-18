@@ -393,6 +393,7 @@ function getnerateIDAOObjects($ret){
     }
     
     $template->set('dao_clazz_name', $clazzName );
+    $template->set('dao_clazz_name_singular', plural2singular($clazzName));
     $template->set('table_name', $tableName);
     $template->set('var_name', getVarName($tableName));
     

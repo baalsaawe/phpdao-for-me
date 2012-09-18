@@ -11,7 +11,7 @@ interface ${dao_clazz_name}DAO{
 	 * Get Domain object by primry key
 	 *
 	 * @param String $id primary key
-	 * @Return ${dao_clazz_name} 
+	 * @Return ${dao_clazz_name_singular}
 	 */
 	public function load($id);
 
