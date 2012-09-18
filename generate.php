@@ -87,7 +87,16 @@ function createDAOFactory($ret){
 }
 
 function camelize($str) {
-    return strtoupper(substr($str, 0, 1)) . substr($str, 1);
+  return strtoupper(substr($str, 0, 1)) . substr($str, 1);
+}
+
+function plural2singular($str) {
+  // TODO rules for plural to singular conversion come here
+  if($str[strlen($str)-1]=='s'){
+    return substr($str, 0, strlen($str)-1);
+  } else {
+    return $str;
+  }
 }
 
 /**
@@ -103,9 +112,7 @@ function getnerateDomainObjects($ret){
 		}
 		$tableName = $ret[$i][0];
 		$clazzName = getClazzName($tableName);
-		if($clazzName[strlen($clazzName)-1]=='s'){
-			$clazzName = substr($clazzName, 0, strlen($clazzName)-1);
-		}
+	  $clazzName = plural2singular($clazzName);
 		$template = new Template('templates/Domain.tpl');
 		$template->set('domain_class_name', $clazzName);
 		$template->set('table_name', $tableName);
@@ -453,11 +460,7 @@ function getClazzName($tableName){
 }
 
 function getDTOName($tableName){
-	$name = getClazzName($tableName);
-	if($name[strlen($name)-1]=='s'){
-		$name = substr($name, 0, strlen($name)-1);
-	}
-	return $name;
+	return plural2singular(getClazzName($tableName));
 }
 
 function getVarName($tableName){
@@ -465,11 +468,9 @@ function getVarName($tableName){
 	for($i=0;$i<strlen($tableName);$i++){
 		if($tableName[$i]=='_'){
 			$tableName = substr($tableName, 0, $i).strtoupper($tableName[$i+1]).substr($tableName, $i+2);
-		}
-	}
-	if($tableName[strlen($tableName)-1]=='s'){
-		$tableName = substr($tableName, 0, strlen($tableName)-1);
-	}
+    }
+  }
+  $tableName = plural2singular($tableName);
 	return $tableName;
 }
 
