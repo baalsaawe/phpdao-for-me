@@ -52,7 +52,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 	}
 	
 	/**
- 	 * Insert record to table
+ 	 * Insert record to table, id is auto-incremented
  	 *
  	 * @param ${dao_clazz_name} ${var_name}
  	 */
@@ -62,6 +62,20 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 		${parameter_setter}
 		$id = $this->executeInsert($sqlQuery);	
 		$${var_name}->set${pk_php_c}($id);
+		return $id;
+	}
+    
+	/**
+ 	 * Insert record to table with specified id
+ 	 *
+ 	 * @param ${dao_clazz_name} ${var_name}
+ 	 */
+	public function insertWithId($${var_name}){
+		$sql = 'INSERT INTO ${table_name} (${pk}, ${insert_fields}) VALUES (?, ${question_marks})';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($${var_name}->get${pk_php_c}());
+		${parameter_setter}
+		$id = $this->executeInsert($sqlQuery);	
 		return $id;
 	}
 	
