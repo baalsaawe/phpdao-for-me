@@ -1,17 +1,17 @@
 <?php
 /**
- * Intreface DAO
+ * Interface DAO
  *
  * @author: http://phpdao.com
  * @date: ${date}
  */
-interface ${dao_clazz_name}DAO{
+interface ${dao_clazz_name}DAO {
 
 	/**
-	 * Get Domain object by primry key
+	 * Get Domain object by primary key
 	 *
 	 * @param String $id primary key
-	 * @Return ${dao_clazz_name} 
+	 * @return ${dao_clazz_name}
 	 */
 	public function load(${pks});
 
@@ -22,13 +22,13 @@ interface ${dao_clazz_name}DAO{
 	
 	/**
 	 * Get all records from table ordered by field
-	 * @Param $orderColumn column name
+	 * @param $orderColumn - column name
 	 */
 	public function queryAllOrderBy($orderColumn);
 	
 	/**
  	 * Delete record from table
- 	 * @param ${var_name} primary key
+ 	 * @param ${var_name} - primary key
  	 */
 	public function delete(${pks});
 	

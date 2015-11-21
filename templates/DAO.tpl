@@ -5,12 +5,12 @@
  * @author: http://phpdao.com
  * @date: ${date}
  */
-class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
+class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
 
 	/**
-	 * Get Domain object by primry key
+	 * Get Domain object by primary key
 	 *
-	 * @param String $id primary key
+	 * @param String $id - primary key
 	 * @return ${domain_clazz_name} 
 	 */
 	public function load($id){
@@ -22,69 +22,83 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 
 	/**
 	 * Get all records from table
+     *
+	 * @return ${domain_clazz_name}[]
 	 */
 	public function queryAll(){
 		$sql = 'SELECT * FROM ${table_name}';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
-	
+
 	/**
 	 * Get all records from table ordered by field
 	 *
-	 * @param $orderColumn column name
+	 * @param $orderColumn - column name
+	 *
+	 * @return ${domain_clazz_name}[]
 	 */
 	public function queryAllOrderBy($orderColumn){
-		$sql = 'SELECT * FROM ${table_name} ORDER BY '.$orderColumn;
+		$sql = 'SELECT * FROM ${table_name} ORDER BY ?';
 		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($orderColumn);
 		return $this->getList($sqlQuery);
 	}
-	
+
 	/**
  	 * Delete record from table
- 	 * @param ${var_name} primary key
- 	 */
+	 *
+ 	 * @param ${var_name} - primary key
+	 *
+	 * @return int
+	 */
 	public function delete($${pk}){
 		$sql = 'DELETE FROM ${table_name} WHERE ${pk} = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set${pk_number}($${pk});
 		return $this->executeUpdate($sqlQuery);
 	}
-	
+
 	/**
  	 * Insert record to table, id is auto-incremented
  	 *
- 	 * @param ${dao_clazz_name} ${var_name}
+ 	 * @param ${domain_clazz_name} ${var_name}
+	 *
+	 * @return String
  	 */
-	public function insert($${var_name}){
+	public function insert(${domain_clazz_name} $${var_name}){
 		$sql = 'INSERT INTO ${table_name} (${insert_fields}) VALUES (${question_marks})';
 		$sqlQuery = new SqlQuery($sql);
 		${parameter_setter}
-		$id = $this->executeInsert($sqlQuery);	
+		$id = $this->executeInsert($sqlQuery);
 		$${var_name}->set${pk_php_c}($id);
 		return $id;
 	}
-    
+
 	/**
  	 * Insert record to table with specified id
  	 *
- 	 * @param ${dao_clazz_name} ${var_name}
- 	 */
-	public function insertWithId($${var_name}){
+ 	 * @param ${domain_clazz_name} ${var_name}
+	 *
+	 * @return string
+	 */
+	public function insertWithId(${domain_clazz_name} $${var_name}){
 		$sql = 'INSERT INTO ${table_name} (${pk}, ${insert_fields}) VALUES (?, ${question_marks})';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($${var_name}->get${pk_php_c}());
 		${parameter_setter}
-		$id = $this->executeInsert($sqlQuery);	
+		$id = $this->executeInsert($sqlQuery);
 		return $id;
 	}
-	
+
 	/**
  	 * Update record in table
  	 *
- 	 * @param ${dao_clazz_name} ${var_name}
+ 	 * @param ${domain_clazz_name} ${var_name}
+	 *
+	 * @return int
  	 */
-	public function update($${var_name}){
+	public function update(${domain_clazz_name} $${var_name}){
 		$sql = 'UPDATE ${table_name} SET ${update_fields} WHERE ${pk} = ?';
 		$sqlQuery = new SqlQuery($sql);
 		${parameter_setter}
@@ -94,6 +108,8 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 
 	/**
  	 * Delete all rows
+	 *
+	 * @return int
  	 */
 	public function clean(){
 		$sql = 'DELETE FROM ${table_name}';
@@ -103,18 +119,23 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
 
 ${queryByFieldFunctions}
 ${deleteByFieldFunctions}
-	
+
 	/**
 	 * Read row
 	 *
-	 * @return ${dao_clazz_name} 
+	 * @return ${domain_clazz_name}
 	 */
 	protected function readRow($row){
 		$${var_name} = new ${domain_clazz_name}();
 		${read_row}
 		return $${var_name};
 	}
-	
+
+	/**
+	* @param $sqlQuery
+	*
+	* @return ${domain_clazz_name}[]
+	*/
 	protected function getList($sqlQuery){
 		$tab = QueryExecutor::execute($sqlQuery);
 		$ret = array();
@@ -123,44 +144,48 @@ ${deleteByFieldFunctions}
 		}
 		return $ret;
 	}
-	
+
 	/**
 	 * Get row
 	 *
-	 * @return ${dao_clazz_name} 
+	 * @param $sqlQuery
+	 * @return ${domain_clazz_name}
 	 */
 	protected function getRow($sqlQuery){
 		$tab = QueryExecutor::execute($sqlQuery);
 		if(count($tab)==0){
 			return null;
 		}
-		return $this->readRow($tab[0]);		
+		return $this->readRow($tab[0]);
 	}
-	
-	/**
-	 * Execute sql query
-	 */
+
+    /**
+     * @param $sqlQuery
+     * @return int
+     */
 	protected function execute($sqlQuery){
 		return QueryExecutor::execute($sqlQuery);
 	}
-	
-		
-	/**
-	 * Execute sql query
-	 */
+
+    /**
+     * @param $sqlQuery
+     * @return int
+     */
 	protected function executeUpdate($sqlQuery){
 		return QueryExecutor::executeUpdate($sqlQuery);
 	}
 
 	/**
-	 * Query for one row and one column
+	 * @param $sqlQuery
+	 * @return int
 	 */
 	protected function querySingleResult($sqlQuery){
 		return QueryExecutor::queryForString($sqlQuery);
 	}
 
 	/**
-	 * Insert row to table
+	 * @param $sqlQuery
+	 * @return int
 	 */
 	protected function executeInsert($sqlQuery){
 		return QueryExecutor::executeInsert($sqlQuery);
