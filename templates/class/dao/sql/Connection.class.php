@@ -8,6 +8,9 @@
 class Connection{
 	private $connection;
 
+	/**
+	 * Connection constructor.
+	 */
 	public function Connection(){
 		$this->connection = ConnectionFactory::getConnection();
 	}
@@ -17,10 +20,8 @@ class Connection{
 	}
 
 	/**
-	 * Wykonanie zapytania sql na biezacym polaczeniu
-	 *
-	 * @param sql zapytanie sql
-	 * @return wynik zapytania
+	 * @param $sql
+	 * @return resource
 	 */
 	public function executeQuery($sql){
 		return mysql_query($sql, $this->connection);

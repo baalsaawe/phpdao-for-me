@@ -8,10 +8,9 @@
 class QueryExecutor{
 
 	/**
-	 * Wykonaniew zapytania do bazy
-	 *
-	 * @param sqlQuery obiekt typu SqlQuery
-	 * @return wynik zapytania 
+	 * @param $sqlQuery
+	 * @return array
+	 * @throws Exception
 	 */
 	public static function execute($sqlQuery){
 		$transaction = Transaction::getCurrentTransaction();
@@ -36,8 +35,12 @@ class QueryExecutor{
 		}
 		return $tab;
 	}
-	
-	
+
+	/**
+	 * @param $sqlQuery
+	 * @return int
+	 * @throws Exception
+	 */
 	public static function executeUpdate($sqlQuery){
 		$transaction = Transaction::getCurrentTransaction();
 		if(!$transaction){
@@ -53,16 +56,20 @@ class QueryExecutor{
 		return mysql_affected_rows();		
 	}
 
+	/**
+	 * @param $sqlQuery
+	 * @return int
+	 * @throws Exception
+	 */
 	public static function executeInsert($sqlQuery){
 		QueryExecutor::executeUpdate($sqlQuery);
 		return mysql_insert_id();
 	}
-	
+
 	/**
-	 * Wykonaniew zapytania do bazy
-	 *
-	 * @param sqlQuery obiekt typu SqlQuery
-	 * @return wynik zapytania 
+	 * @param $sqlQuery
+	 * @return mixed
+	 * @throws Exception
 	 */
 	public static function queryForString($sqlQuery){
 		$transaction = Transaction::getCurrentTransaction();

@@ -6,11 +6,10 @@
  * @date: 27.11.2007
  */
 class ConnectionFactory{
-	
+
 	/**
-	 * Zwrocenie polaczenia
-	 *
-	 * @return polaczenie
+	 * @return resource
+	 * @throws Exception
 	 */
 	static public function getConnection(){
 		$conn = mysql_connect(ConnectionProperty::getHost(), ConnectionProperty::getUser(), ConnectionProperty::getPassword());
@@ -22,9 +21,7 @@ class ConnectionFactory{
 	}
 
 	/**
-	 * Zamkniecie polaczenia
-	 *
-	 * @param connection polaczenie do bazy
+	 * @param $connection
 	 */
 	static public function close($connection){
 		mysql_close($connection);

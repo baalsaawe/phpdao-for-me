@@ -6,10 +6,19 @@
  * @date: 27.11.2007
  */
 class Transaction{
+	/**
+	 * @var
+     */
 	private static $transactions;
 
+	/**
+	 * @var Connection
+     */
 	private $connection;
 
+	/**
+	 * Transaction constructor.
+     */
 	public function Transaction(){
 		$this->connection = new Connection();
 		if(!Transaction::$transactions){
@@ -19,38 +28,26 @@ class Transaction{
 		$this->connection->executeQuery('BEGIN');
 	}
 
-	/**
-	 * Zakonczenie transakcji i zapisanie zmian
-	 */
 	public function commit(){
 		$this->connection->executeQuery('COMMIT');
 		$this->connection->close();
 		Transaction::$transactions->removeLast();
 	}
 
-	/**
-	 * Zakonczenie transakcji i wycofanie zmian
-	 */
 	public function rollback(){
 		$this->connection->executeQuery('ROLLBACK');
 		$this->connection->close();
 		Transaction::$transactions->removeLast();
 	}
 
+
 	/**
-	 * Pobranie polaczenia dla obencej transakcji
-	 *
-	 * @return polazenie do bazy
-	 */
+	 * @return Connection
+     */
 	public function getConnection(){
 		return $this->connection;
 	}
 
-	/**
-	 * Zwraca obecna transakcje
-	 *
-	 * @return transkacja
-	 */
 	public static function getCurrentTransaction(){
 		if(Transaction::$transactions){
 			$tran = Transaction::$transactions->getLast();
