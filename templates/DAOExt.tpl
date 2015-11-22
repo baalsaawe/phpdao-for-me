@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class that operate on table '${table_name}'. Database Mysql.
  *
@@ -7,6 +8,6 @@
  */
 class ${dao_clazz_name}DAO extends ${dao_clazz_sup_name}DAO {
 
-	
+
 }
 ?>
