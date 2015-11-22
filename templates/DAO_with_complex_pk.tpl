@@ -14,9 +14,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      * @param String $id - primary key
      * @return ${domain_clazz_name}
      */
-    public
-    function load(${
-        pks}){
+    public function load(${pks}){
         $sql = 'SELECT * FROM ${table_name} WHERE ${pk_where}';
         $sqlQuery = new SqlQuery($sql);
         ${pk_set}
@@ -28,8 +26,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return ${domain_clazz_name}[]
      */
-    public
-    function queryAll() {
+    public function queryAll() {
         $sql = 'SELECT * FROM ${table_name}';
         $sqlQuery = new SqlQuery($sql);
         return $this->getList($sqlQuery);
@@ -42,8 +39,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return ${domain_clazz_name}[]
      */
-    public
-    function queryAllOrderBy($orderColumn) {
+    public function queryAllOrderBy($orderColumn) {
         $sql = 'SELECT * FROM ${table_name} ORDER BY ?';
         $sqlQuery = new SqlQuery($sql);
         $sqlQuery->set($orderColumn);
@@ -55,9 +51,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      * @param ${var_name} - primary key
      * @return int
      */
-    public
-    function delete(${
-        pks}){
+    public function delete(${pks}) {
         $sql = 'DELETE FROM ${table_name} WHERE ${pk_where}';
         $sqlQuery = new SqlQuery($sql);
         ${pk_set}
@@ -70,11 +64,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      * @param ${domain_clazz_name} ${var_name}
      * @return String
      */
-    public
-    function insert(${
-        domain_clazz_name}
-
-    $${var_name}){
+    publicfunction insert(${domain_clazz_name} $${var_name}) {
         $sql = 'INSERT INTO ${table_name} (${insert_fields2}) VALUES (${question_marks2})';
         $sqlQuery = new SqlQuery($sql);
         ${parameter_setter}
@@ -88,8 +78,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      * @param ${domain_clazz_name} ${var_name}
      * @return int
      */
-	public function update(${
-        domain_clazz_name} $${var_name}){
+	public function update(${domain_clazz_name} $${var_name}) {
         $sql = 'UPDATE ${table_name} SET ${update_fields} WHERE ${pk_where}';
         $sqlQuery = new SqlQuery($sql);
         ${parameter_setter}

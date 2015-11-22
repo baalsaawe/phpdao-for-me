@@ -14,8 +14,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      * @param String $id - primary key
      * @return ${domain_clazz_name}
      */
-    public
-    function load($id) {
+    public function load($id) {
         $sql = 'SELECT * FROM ${table_name} WHERE ${pk} = ?';
         $sqlQuery = new SqlQuery($sql);
         $sqlQuery->set${pk_number}($id);
@@ -27,8 +26,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return ${domain_clazz_name}[]
      */
-    public
-    function queryAll() {
+    public function queryAll() {
         $sql = 'SELECT * FROM ${table_name}';
         $sqlQuery = new SqlQuery($sql);
         return $this->getList($sqlQuery);
@@ -41,8 +39,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return ${domain_clazz_name}[]
      */
-    public
-    function queryAllOrderBy($orderColumn) {
+    public function queryAllOrderBy($orderColumn) {
         $sql = 'SELECT * FROM ${table_name} ORDER BY ?';
         $sqlQuery = new SqlQuery($sql);
         $sqlQuery->set($orderColumn);
@@ -56,8 +53,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return int
      */
-    public
-    function delete($${pk}){
+    public function delete($${pk}){
         $sql = 'DELETE FROM ${table_name} WHERE ${pk} = ?';
         $sqlQuery = new SqlQuery($sql);
         $sqlQuery->set${pk_number}($${pk});
@@ -71,8 +67,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return String
      */
-	public function insert(${
-        domain_clazz_name} $${var_name}){
+	public function insert(${domain_clazz_name} $${var_name}) {
         $sql = 'INSERT INTO ${table_name} (${insert_fields}) VALUES (${question_marks})';
         $sqlQuery = new SqlQuery($sql);
         ${parameter_setter}
@@ -88,8 +83,7 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
      *
      * @return string
      */
-	public function insertWithId(${
-        domain_clazz_name} $${var_name}){
+	public function insertWithId(${domain_clazz_name} $${var_name}) {
         $sql = 'INSERT INTO ${table_name} (${pk}, ${insert_fields}) VALUES (?, ${question_marks})';
         $sqlQuery = new SqlQuery($sql);
         $sqlQuery->setNumber($${var_name}->get${pk_php_c}());
