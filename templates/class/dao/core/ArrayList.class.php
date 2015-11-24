@@ -6,7 +6,13 @@
  * @date: 2007-11-28
  */
 class ArrayList{
+	/**
+	 * @var array
+	 */
 	private $tab;
+	/**
+	 * @var int
+	 */
 	private $size;
 
 	public function ArrayList(){
@@ -15,23 +21,23 @@ class ArrayList{
 	}
 
 	/**
-	 * Dodanie wartosci do listy
+	 * @param $value
 	 */
 	public function add($value){
-		$this->tab[$this->size] = $value;
-		$this->size = ($this->size) +1;
+		$this->tab[] = $value;
+		$this->size++;
 	}
 
 	/**
-	 * Pobranie elementu o numerze podanym
-	 * jako parametr metody
+	 * @param $idx
+	 * @return mixed
 	 */
 	public function get($idx){
 		return $this->tab[$idx];
 	}
 
 	/**
-	 * Pobranie ostatniego elementu
+	 * @return mixed
 	 */
 	public function getLast(){
 		if($this->size==0){
@@ -41,24 +47,18 @@ class ArrayList{
 	}
 
 	/**
-	 * Rozmiar listy
+	 * @return int
 	 */
 	public function size(){
 		return $this->size;
 	}
 
 	/**
-	 * Czy lista jest pusta
+	 * @return bool
 	 */
 	public function isEmpty(){
 		return ($this->size)==0;
 	}
 
-	/**
-	 * Usuniecie ostatniego
-	 */
-	public function removeLast(){
-		return $this->size = ($this->size) -1;
-	}
 }
 ?>

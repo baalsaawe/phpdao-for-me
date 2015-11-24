@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Object represents sql query with params
  *
  * @author: http://phpdao.com
  * @date: 27.10.2007
  */
-class SqlQuery{
+class SqlQuery
+{
 	var $txt;
 	var $params = array();
 	var $idx = 0;
@@ -15,7 +17,7 @@ class SqlQuery{
 	 *
 	 * @param String $txt zapytanie sql
 	 */
-	function SqlQuery($txt){
+	function SqlQuery($txt) {
 		$this->txt = $txt;
 	}
 
@@ -24,37 +26,35 @@ class SqlQuery{
 	 *
 	 * @param String $value value set
 	 */
-	public function setString($value){
+	public function setString($value) {
 		$value = mysql_escape_string($value);
-		$this->params[$this->idx++] = "'".$value."'";
+		$this->params[$this->idx++] = "'" . $value . "'";
 	}
-	
+
 	/**
 	 * Set string param
 	 *
 	 * @param String $value value to set
 	 */
-	public function set($value){
+	public function set($value) {
 		$value = mysql_escape_string($value);
-		$this->params[$this->idx++] = "'".$value."'";
+		$this->params[$this->idx++] = "'" . $value . "'";
 	}
-	
+
 
 	/**
-	 * Metoda zamienia znaki zapytania
-	 * na wartosci przekazane jako parametr metody
-	 *
-	 * @param String $value wartosc do wstawienia
+	 * @param $value
+	 * @throws Exception
 	 */
-	public function setNumber($value){
-		if($value===null){
+	public function setNumber($value) {
+		if ($value === null) {
 			$this->params[$this->idx++] = "null";
 			return;
 		}
-		if(!is_numeric($value)){
-			throw new Exception($value.' is not a number');
+		if (!is_numeric($value)) {
+			throw new Exception($value . ' is not a number');
 		}
-		$this->params[$this->idx++] = "'".$value."'";
+		$this->params[$this->idx++] = "'" . $value . "'";
 	}
 
 	/**
@@ -62,22 +62,22 @@ class SqlQuery{
 	 *
 	 * @return String
 	 */
-	public function getQuery(){
-		if($this->idx==0){
+	public function getQuery() {
+		if ($this->idx == 0) {
 			return $this->txt;
 		}
 		$p = explode("?", $this->txt);
 		$sql = '';
-		for($i=0;$i<=$this->idx;$i++){
-			if($i>=count($this->params)){
+		for ($i = 0; $i <= $this->idx; $i++) {
+			if ($i >= count($this->params)) {
 				$sql .= $p[$i];
-			}else{
-				$sql .= $p[$i].$this->params[$i];
+			} else {
+				$sql .= $p[$i] . $this->params[$i];
 			}
 		}
 		return $sql;
 	}
-	
+
 	/**
 	 * Function replace first char
 	 *
@@ -86,15 +86,16 @@ class SqlQuery{
 	 * @param String $new
 	 * @return String
 	 */
-	private function replaceFirst($str, $old, $new){
+	private function replaceFirst($str, $old, $new) {
 		$len = strlen($str);
-		for ($i=0;$i<$len;$i++){
-			if($str[$i]==$old){
-				$str = substr($str,0,$i).$new.substr($str,$i+1);
+		for ($i = 0; $i < $len; $i++) {
+			if ($str[$i] == $old) {
+				$str = substr($str, 0, $i) . $new . substr($str, $i + 1);
 				return $str;
 			}
 		}
 		return $str;
 	}
 }
+
 ?>

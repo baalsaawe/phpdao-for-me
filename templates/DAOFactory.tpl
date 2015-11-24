@@ -5,7 +5,7 @@
  * @author: http://phpdao.com
  * @date: ${date}
  */
-class DAOFactory{
-	${content}
+class DAOFactory {
+${content}
 }
 ?>
