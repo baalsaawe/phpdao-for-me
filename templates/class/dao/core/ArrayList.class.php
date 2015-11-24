@@ -37,7 +37,7 @@ class ArrayList{
 	}
 
 	/**
-	 * @return null
+	 * @return mixed
 	 */
 	public function getLast(){
 		if($this->size==0){
