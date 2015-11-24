@@ -9,4 +9,5 @@ require_once('class/sql/SqlQuery.class.php');
 require_once('class/core/ArrayList.class.php');
 require_once('class/dao/DAOFactory.class.php');
 ${include}
+
 ?>

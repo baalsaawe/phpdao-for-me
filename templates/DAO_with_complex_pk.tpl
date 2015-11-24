@@ -8,166 +8,168 @@
  */
 class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO {
 
-    /**
-     * Get Domain object by primary key
-     *
-     * @param String $id - primary key
-     * @return ${domain_clazz_name}
-     */
-    public function load(${pks}){
-        $sql = 'SELECT * FROM ${table_name} WHERE ${pk_where}';
-        $sqlQuery = new SqlQuery($sql);
-        ${pk_set}
+	/**
+	 * Get Domain object by primary key
+	 *
+	 * @param String $id - primary key
+	 * @return ${domain_clazz_name}
+	 */
+	public function load(${
+		pks}){
+		$sql = 'SELECT * FROM ${table_name} WHERE ${pk_where}';
+		$sqlQuery = new SqlQuery($sql);
+		${pk_set}
 		return $this->getRow($sqlQuery);
 	}
 
-    /**
-     * Get all records from table
-     *
-     * @return ${domain_clazz_name}[]
-     */
-    public function queryAll() {
-        $sql = 'SELECT * FROM ${table_name}';
-        $sqlQuery = new SqlQuery($sql);
-        return $this->getList($sqlQuery);
-    }
+	/**
+	 * Get all records from table
+	 *
+	 * @return ${domain_clazz_name}[]
+	 */
+	public function queryAll() {
+		$sql = 'SELECT * FROM ${table_name}';
+		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
 
-    /**
-     * Get all records from table ordered by field
-     *
-     * @param $orderColumn - column name
-     *
-     * @return ${domain_clazz_name}[]
-     */
-    public function queryAllOrderBy($orderColumn) {
-        $sql = 'SELECT * FROM ${table_name} ORDER BY ?';
-        $sqlQuery = new SqlQuery($sql);
-        $sqlQuery->set($orderColumn);
-        return $this->getList($sqlQuery);
-    }
+	/**
+	 * Get all records from table ordered by field
+	 *
+	 * @param $orderColumn - column name
+	 *
+	 * @return ${domain_clazz_name}[]
+	 */
+	public function queryAllOrderBy($orderColumn) {
+		$sql = 'SELECT * FROM ${table_name} ORDER BY ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($orderColumn);
+		return $this->getList($sqlQuery);
+	}
 
-    /**
-     * Delete record from table
-     * @param ${var_name} - primary key
-     * @return int
-     */
-    public function delete(${pks}) {
-        $sql = 'DELETE FROM ${table_name} WHERE ${pk_where}';
-        $sqlQuery = new SqlQuery($sql);
-        ${pk_set}
+	/**
+	 * Delete record from table
+	 * @param ${var_name} - primary key
+	 * @return int
+	 */
+	public function delete(${
+		pks}) {
+		$sql = 'DELETE FROM ${table_name} WHERE ${pk_where}';
+		$sqlQuery = new SqlQuery($sql);
+		${pk_set}
 		return $this->executeUpdate($sqlQuery);
 	}
 
-    /**
-     * Insert record to table
-     *
-     * @param ${domain_clazz_name} ${var_name}
-     * @return String
-     */
-    publicfunction insert(${domain_clazz_name} $${var_name}) {
-        $sql = 'INSERT INTO ${table_name} (${insert_fields2}) VALUES (${question_marks2})';
-        $sqlQuery = new SqlQuery($sql);
-        ${parameter_setter}
+	/**
+	 * Insert record to table
+	 *
+	 * @param ${domain_clazz_name} ${var_name}
+	 * @return String
+	 */
+	public function insert(${domain_clazz_name} $${var_name}) {
+		$sql = 'INSERT INTO ${table_name} (${insert_fields2}) VALUES (${question_marks2})';
+		$sqlQuery = new SqlQuery($sql);
+		${parameter_setter}
 		${pk_set_update}
 		$this->executeInsert($sqlQuery);
 	}
 
 	/**
-     * Update record in table
-     *
-     * @param ${domain_clazz_name} ${var_name}
-     * @return int
-     */
+	 * Update record in table
+	 *
+	 * @param ${domain_clazz_name} ${var_name}
+	 * @return int
+	 */
 	public function update(${domain_clazz_name} $${var_name}) {
-        $sql = 'UPDATE ${table_name} SET ${update_fields} WHERE ${pk_where}';
-        $sqlQuery = new SqlQuery($sql);
-        ${parameter_setter}
+		$sql = 'UPDATE ${table_name} SET ${update_fields} WHERE ${pk_where}';
+		$sqlQuery = new SqlQuery($sql);
+		${parameter_setter}
 		${pk_set_update}
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	/**
-     * Delete all rows
-     * @return int
-     */
+	 * Delete all rows
+	 * @return int
+	 */
 	public function clean() {
-        $sql = 'DELETE FROM ${table_name}';
-        $sqlQuery = new SqlQuery($sql);
-        return $this->executeUpdate($sqlQuery);
-    }
+		$sql = 'DELETE FROM ${table_name}';
+		$sqlQuery = new SqlQuery($sql);
+		return $this->executeUpdate($sqlQuery);
+	}
 
 ${queryByFieldFunctions}
 ${deleteByFieldFunctions}
 
 	/**
-     * Read row
-     *
-     * @return ${domain_clazz_name}
-     */
+	 * Read row
+	 *
+	 * @return ${domain_clazz_name}
+	 */
 	protected function readRow($row) {
-        $${var_name} = new ${domain_clazz_name}();
-        ${read_row}
+		$${var_name} = new ${domain_clazz_name}();
+		${read_row}
 		return $${var_name};
 	}
 
 	/**
-     * @param $sqlQuery
-     *
-     * @return ${domain_clazz_name}[]
-     */
+	 * @param $sqlQuery
+	 *
+	 * @return ${domain_clazz_name}[]
+	 */
 	protected function getList($sqlQuery) {
-        $tab = QueryExecutor::execute($sqlQuery);
-        $ret = array();
-        for ($i = 0; $i < count($tab); $i++) {
-            $ret[$i] = $this->readRow($tab[$i]);
-        }
-        return $ret;
-    }
+		$tab = QueryExecutor::execute($sqlQuery);
+		$ret = array();
+		for ($i = 0; $i < count($tab); $i++) {
+			$ret[$i] = $this->readRow($tab[$i]);
+		}
+		return $ret;
+	}
 
 	/**
-     * Get row
-     *
-     * @param $sqlQuery
-     * @return ${domain_clazz_name}
-     */
+	 * Get row
+	 *
+	 * @param $sqlQuery
+	 * @return ${domain_clazz_name}
+	 */
 	protected function getRow($sqlQuery) {
-        $tab = QueryExecutor::execute($sqlQuery);
-        if (count($tab) == 0) {
-            return null;
-        }
-        return $this->readRow($tab[0]);
-    }
+		$tab = QueryExecutor::execute($sqlQuery);
+		if (count($tab) == 0) {
+			return null;
+		}
+		return $this->readRow($tab[0]);
+	}
 
 	/**
-     * @param $sqlQuery
-     * @return int
-     */
+	 * @param $sqlQuery
+	 * @return int
+	 */
 	protected function execute($sqlQuery) {
-        return QueryExecutor::execute($sqlQuery);
-    }
+		return QueryExecutor::execute($sqlQuery);
+	}
 
 	/**
-     * @param $sqlQuery
-     * @return int
-     */
+	 * @param $sqlQuery
+	 * @return int
+	 */
 	protected function executeUpdate($sqlQuery) {
-        return QueryExecutor::executeUpdate($sqlQuery);
-    }
+		return QueryExecutor::executeUpdate($sqlQuery);
+	}
 
 	/**
-     * @param $sqlQuery
-     * @return int
-     */
+	 * @param $sqlQuery
+	 * @return int
+	 */
 	protected function querySingleResult($sqlQuery) {
-        return QueryExecutor::queryForString($sqlQuery);
-    }
+		return QueryExecutor::queryForString($sqlQuery);
+	}
 
 	/**
-     * @param $sqlQuery
-     * @return int
-     */
+	 * @param $sqlQuery
+	 * @return int
+	 */
 	protected function executeInsert($sqlQuery) {
-        return QueryExecutor::executeInsert($sqlQuery);
-    }
+		return QueryExecutor::executeInsert($sqlQuery);
+	}
 }
 ?>
