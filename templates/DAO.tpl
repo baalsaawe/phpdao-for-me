@@ -160,7 +160,7 @@ ${deleteByFieldFunctions}
 		return $this->readRow($tab[0]);
 	}
 
-    /**
+    	/**
 	 * @param $sqlQuery
 	 * @return int
 	 */
@@ -168,7 +168,7 @@ ${deleteByFieldFunctions}
 		return QueryExecutor::execute($sqlQuery);
 	}
 
-    /**
+    	/**
 	 * @param $sqlQuery
 	 * @return int
 	 */
